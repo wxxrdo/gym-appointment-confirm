@@ -44,7 +44,7 @@
       const phone = raw.match(/Phone:\s*(.*)/)[1];
       const time = raw.match(/Time:\s*(.*)/)[1];
 
-      await fetch("YOUR_WEBHOOK_URL_HERE", {
+      await fetch("https://hook.us2.make.com/lj9t31uuckfowyadrc885fnkd9eriqx2", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, phone, time })
