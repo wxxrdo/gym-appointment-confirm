@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Confirm Your Gym Appointment</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    textarea {
+      width: 100%;
+      height: 160px;
+      font-size: 16px;
+    }
+    button {
+      padding: 12px 20px;
+      font-size: 16px;
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Paste Your Appointment Details Here:</h2>
+  <p>Paste the message your AI bot gave you that starts with <b>#APPOINTMENT</b>.</p>
+
+  <textarea id="data"></textarea><br><br>
+
+  <button onclick="send()">Send Appointment</button>
+
+  <script>
+    async function send() {
+      const raw = document.getElementById("data").value;
+
+      if (!raw.includes("#APPOINTMENT")) {
+        alert("Invalid format. Make sure you copied the #APPOINTMENT block.");
+        return;
+      }
+
+      const name = raw.match(/Name:\s*(.*)/)[1];
+      const phone = raw.match(/Phone:\s*(.*)/)[1];
+      const time = raw.match(/Time:\s*(.*)/)[1];
+
+      await fetch("YOUR_WEBHOOK_URL_HERE", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, phone, time })
+      });
+
+      alert("Appointment sent successfully!");
+    }
+  </script>
+</body>
+</html>
